@@ -28,23 +28,20 @@ sub xfrm_edit {
     if ( $cfg->{tw_share} eq '3' ) { $selected_3 = 'selected="selected"'; }
 
     my $setting = <<END_TMPL;
-			<mtapp:setting
+			<mtapp:widget
 			id="tw_share"
-			label="HashTag">
+			label="Tweet with HashTag">
             <select name="tw_share" id="tw_share" class="full-width">
             <option value="0" $selected_0 >Don't Tweet</value>
             <option value="1" $selected_1 >Tweet without HashTags</option>
             <option value="2" $selected_2 >Tweet with #$cfg->{tw_community}</option>
             <option value="3" $selected_3 >Tweet tags as HashTags</option>
             </select>
-			</mtapp:setting>
+			</mtapp:widget>
 END_TMPL
 
-    $$tmpl =~ s{(<mtapp:setting
-            id="status"
-            label="<__trans phrase="Status">"
-            help_page="entries"
-            help_section="status">)}{$setting$1}msg;
+	$$tmpl =~ s{(<mtapp:widget
+    id="entry-publishing-widget")}{$setting$1}msg;
 }
 
 sub hdlr_post_save {
