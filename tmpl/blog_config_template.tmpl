@@ -1,65 +1,56 @@
- 	<div class="setting">
- 	    <div class="label">
- 	        <label for="tw_username"><MT_TRANS phrase="Username">:</label>
- 	    </div>
- 	    <div class="field">
- 	        <input type="text" name="tw_username" id="tw_username" value="<TMPL_VAR NAME="TW_USERNAME" ESCAPE=HTML>"><br/>
- 	        <p><MT_TRANS phrase="Your twitter user name."></p>
- 	    </div>
- 	</div>
- 	
- 	<div class="setting">
- 	    <div class="label">
- 	        <label for="tw_password"><MT_TRANS phrase="Password">:</label>
- 	    </div>
- 	    <div class="field">
- 	        <input type="password" name="tw_password" id="tw_password" value="<TMPL_VAR NAME="TW_PASSWORD" ESCAPE=HTML>"><br/>
- 	        <p><MT_TRANS phrase="Your Twitter password."></p>
- 	    </div>
- 	</div>
-
-        <div class="setting">
-            <div class="label">
-                <label for="tw_intro"><MT_TRANS phrase="Introduction">:</label>
-            </div>
-            <div class="field">
-                <input type="text" name="tw_intro" id="tw_intro" value="<TMPL_VAR NAME="TW_INTRO" ESCAPE=HTML>"><br/>
-                <p><MT_TRANS phrase="Precedes the post title and url."></p>
-            </div>
-        </div>
-
-        <div class="setting">
-            <div class="label">
-                <label for="tw_community"><MT_TRANS phrase="Hash Tag">:</label>
-            </div>
-            <div class="field">
-                <input type="text" name="tw_community" id="tw_community" value="<TMPL_VAR NAME="TW_COMMUNITY" ESCAPE=HTML>"><br/>
-                <p><MT_TRANS phrase="Default hashtag"></p>
-            </div>
-        </div>
-
-	<div class="setting">
-    		<div class="label">
-			<label for="tw_share"><MT_TRANS phrase="By default">:</label>
-    		</div>
-    		<div class="field">
-		<ul>
-			<li><label><input type="radio" name="tw_share" id="tw_share"
-            value="0" <mt:if name="tw_share"
-            eq="0">checked="checked"</mt:if>/>&nbsp;<MT_TRANS phrase="Don't
-            Tweet"></label></li>
-        		<li><label><input type="radio" name="tw_share" id="tw_share"
-                value="1" <mt:if name="tw_share"
-                eq="1">checked="checked"</mt:if>/>&nbsp;<MT_TRANS
-                phrase="Tweet without HashTags"></label></li>
-			<li><label><input type="radio" name="tw_share" id="tw_share"
-            value="2" <mt:if name="tw_share"
-            eq="2">checked="checked"</mt:if>/>&nbsp;<MT_TRANS phrase="Use
-            default HashTag"></label></li>
-			<li><label><input type="radio" name="tw_share" id="tw_share"
-            value="3" <mt:if name="tw_share"
-            eq="3">checked="checked"</mt:if>/>&nbsp;<MT_TRANS phrase="Use
-            entry tags as HashTags"></label></li>
-    		</ul>
-		</div> 
-	</div>
+<mtapp:setting
+  id='tw_intro'
+  label='<__trans phrase='Introduction'>'
+  hint='<__trans phrase='Hint'>'
+  >
+    <input type="text" name="tw_intro" name="tw_intro" value="<mt:var name="tw_intro" escape="html">" />
+    <p><__trans phrase='Precedes the post title and url.'></p>
+</mtapp:setting>
+<mtapp:setting
+  id='tw_community'
+  label='<__trans phrase='Hash Tag'>'
+  hint='<__trans phrase='Hint'>'
+  >
+    <input type="text" name="tw_community" name="tw_community" value="<mt:var name="tw_community" escape="html">" />
+    <p><__trans phrase='Default hashtag'></p>
+</mtapp:setting>
+<mtapp:setting
+  id='tw_share'
+  label='<__trans phrase='By default'>'
+  hint='<__trans phrase='Hint'>'
+  >
+    <input type="radio" name="tw_share" id="tw_share" value="0"<mt:if name="tw_share" eq="0"> checked="checked"</mt:if> />
+        &nbsp;<__trans phrase="Don't Tweet"><br />
+    <input type="radio" name="tw_share" id="tw_share" value="1"<mt:if name="tw_share" eq="1"> checked="checked"</mt:if> />
+        &nbsp;<__trans phrase='Tweet without HashTags'><br />
+    <input type="radio" name="tw_share" id="tw_share" value="2"<mt:if name="tw_share" eq="2"> checked="checked"</mt:if> />
+        &nbsp;<__trans phrase='Use default HashTag'><br />
+    <input type="radio" name="tw_share" id="tw_share" value="3"<mt:if name="tw_share" eq="3"> checked="checked"</mt:if> />
+        &nbsp;<__trans phrase='Use entry tags as HashTags'>
+</mtapp:setting>
+<mtapp:setting
+    id="bitly_login"
+    label="<__trans phrase="bit.ly login:">"
+    hint="<__trans phrase="Hint">">
+    <input type="text" name="bitly_login" id="bitly_login" value="<mt:var name="bitly_login" escape="html">" />
+</mtapp:setting>
+<mtapp:setting
+    id="bitly_apikey"
+    label="<__trans phrase="bit.ly apikey:">"
+    hint="<__trans phrase="Hint">">
+    <input type="text" name="bitly_apikey" id="bitly_apikey" value="<mt:var name="bitly_apikey" escape="html">" />
+</mtapp:setting>
+<mtapp:setting
+    id="bitly_ver"
+    label="<__trans phrase="bit.ly ver:">"
+    class="hidden"
+    hint="<__trans phrase="Hint">">
+    <input type="text" name="bitly_ver" id="bitly_ver" value="<mt:var name="bitly_ver" escape="html">" readonly="readonly" />
+</mtapp:setting>
+<mtapp:setting
+    id="bitly_ver"
+    label="<__trans phrase="Enable History:">"
+    class="hidden"
+    hint="<__trans phrase="Hint">">
+    <input type="checkbox" name="bitly_history" id="bitly_history" value="1"<mt:if name="bitly_history"> checked="checked"</mt:if> />
+</mtapp:setting>
