@@ -4,8 +4,7 @@ use strict;
 use warnings;
 use MT;
 use MT::OAuth;
-use MT::Util qw( dirify );
-
+use MT::Util qw( xliterate_utf8 );
 
 sub instance {
     return mt->component("HashTag");
@@ -96,17 +95,23 @@ sub _tag_to_hashtag {
     my @normalized;
     foreach my $tagname ( $obj->tags ) {
         next unless index( $tagname, '@' );
-        my $dirified_tag = dirify($tagname);
-        if ($dirified_tag) {
+        $tagname = xliterate_utf8($tagname); # convert high ascii
+        $tagname =~ s/&/and/g;               # convert & to and
+        $tagname =~ s/\s+/_/g;               # convert space to _
+        if ( $tagname =~ /^\w+$/ ) {         # except non ascii
             my $tag = MT::Tag->new;
             $tag->name($tagname);
             push( @normalized, $tag->normalize );
         }
     }
-    my $hashtag = ' #' . join( ' #', @normalized );
+    my $hashtag = join( ' #', @normalized );
     $hashtag ? MT::I18N::length_text($hashtag) : 0;
 
-    return $hashtag;
+    if ( $hashtag ) {
+        return ' #' . $hashtag;
+    } else {
+        return
+    }
 }
 
 sub _build_tweet {
@@ -168,7 +173,7 @@ sub _build_tweet {
 
 sub _update_twitter {
     my ( $author_id, $tweet ) = @_;
-    my $tweet_debug = 1;
+    my $tweet_debug = 1; # 0 is TestMode. Do not Tweet. only Log output.
     if ($tweet_debug) {
 
     MT->log( { message => 'Tweeting' . ' ' . $tweet, } );

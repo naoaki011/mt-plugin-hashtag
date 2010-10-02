@@ -34,7 +34,13 @@ blog_config_template: blog_config_template.tmpl
 
 callbacks:
     MT::App::CMS::template_source.edit_entry: $HashTag::HashTag::Plugin::xfrm_edit
-    MT::App::CMS::cms_post_save.entry: $HashTag::HashTag::Plugin::hdlr_post_save
-    MT::App::CMS::cms_post_save.page: $HashTag::HashTag::Plugin::hdlr_post_save
-    scheduled_post_published: $HashTag::HashTag::Plugin::hdlr_scheduled_post
+    MT::App::CMS::cms_post_save.entry:
+        code: $HashTag::HashTag::Plugin::hdlr_post_save
+        priority: 10
+    MT::App::CMS::cms_post_save.page:
+        code: $HashTag::HashTag::Plugin::hdlr_post_save
+        priority: 10
+    scheduled_post_published:
+        code: $HashTag::HashTag::Plugin::hdlr_scheduled_post
+        priority: 10
 
