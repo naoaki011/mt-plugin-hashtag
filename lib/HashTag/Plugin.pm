@@ -97,6 +97,13 @@ sub _tag_to_hashtag {
         next unless index( $tagname, '@' );
         $tagname = xliterate_utf8($tagname); # convert high ascii
         $tagname =~ s/&/and/g;               # convert & to and
+        $tagname =~ s/\'//g;                 # 
+        $tagname =~ s/\"//g;                 # 
+        $tagname =~ s/\./_/g;                # 
+        $tagname =~ s/\$//g;                 # 
+        $tagname =~ s/\#//g;                 # 
+        $tagname =~ s/\!//g;                 # 
+        $tagname =~ s/\%/per/g;              # 
         $tagname =~ s/\s+/_/g;               # convert space to _
         if ( $tagname =~ /^\w+$/ ) {         # except non ascii
             my $tag = MT::Tag->new;
