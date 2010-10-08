@@ -24,12 +24,12 @@ settings:
     bitly_apikey:
         Default: ''
         Scope: blog
-    bitly_ver:
-        Default: '2.0.1'
-        Scope: blog
-    bitly_history:
-        Default: '0'
-        Scope: blog
+#    bitly_ver:
+#        Default: '2.0.1'
+#        Scope: blog
+#    bitly_history:
+#        Default: '0'
+#        Scope: blog
 blog_config_template: blog_config_template.tmpl
 
 callbacks:

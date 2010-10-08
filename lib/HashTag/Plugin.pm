@@ -144,7 +144,7 @@ sub _build_tweet {
     if ( $cfg->{bitly_login} && $cfg->{bitly_apikey} ) {
         $entry_url = _bitly_shorten_v3($cfg,$obj->permalink);
     } else {
-        $entry_url = $obj->permalink;
+        $entry_url = _tinyurl_shorten($obj->permalink);
     }
 
     if ( defined { $app->param('tw_share') } ) {
@@ -243,6 +243,19 @@ sub _bitly_shorten_v3 {
 #    $text = $nodes->item(0)->getFirstChild->getNodeValue;
 #    return $text;
 #}
+
+sub _tinyurl_shorten {
+    my ($text) = @_;
+    my $data;
+    if ($text) {
+        require LWP::Simple;
+        my $api_url = "http://tinyurl.com/api-create.php?url=$text";
+        my $tinyurl = LWP::Simple::get ($api_url)
+            or return undef;
+        $data = { URL => $tinyurl };
+    }
+    $data->{URL} || $text;
+}
 
 sub doLog {
     my ($msg) = @_; 

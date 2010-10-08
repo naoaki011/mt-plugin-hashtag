@@ -40,7 +40,7 @@
     hint="<__trans phrase="Hint">">
     <input type="text" name="bitly_apikey" id="bitly_apikey" value="<mt:var name="bitly_apikey" escape="html">" />
 </mtapp:setting>
-<mtapp:setting
+<mt:ignore><mtapp:setting
     id="bitly_ver"
     label="<__trans phrase="bit.ly ver:">"
     class="hidden"
@@ -53,4 +53,4 @@
     class="hidden"
     hint="<__trans phrase="Hint">">
     <input type="checkbox" name="bitly_history" id="bitly_history" value="1"<mt:if name="bitly_history"> checked="checked"</mt:if> />
-</mtapp:setting>
+</mtapp:setting></mt:ignore>
