@@ -28,19 +28,21 @@
     <input type="radio" name="tw_share" id="tw_share" value="3"<mt:if name="tw_share" eq="3"> checked="checked"</mt:if> />
         &nbsp;<__trans phrase='Use entry tags as HashTags'>
 </mtapp:setting>
-<mtapp:setting
+<mt:ignore><mtapp:setting
     id="bitly_login"
     label="<__trans phrase="bit.ly login:">"
+    class="hidden"
     hint="<__trans phrase="Hint">">
     <input type="text" name="bitly_login" id="bitly_login" value="<mt:var name="bitly_login" escape="html">" />
 </mtapp:setting>
 <mtapp:setting
     id="bitly_apikey"
     label="<__trans phrase="bit.ly apikey:">"
+    class="hidden"
     hint="<__trans phrase="Hint">">
     <input type="text" name="bitly_apikey" id="bitly_apikey" value="<mt:var name="bitly_apikey" escape="html">" />
 </mtapp:setting>
-<mt:ignore><mtapp:setting
+<mtapp:setting
     id="bitly_ver"
     label="<__trans phrase="bit.ly ver:">"
     class="hidden"

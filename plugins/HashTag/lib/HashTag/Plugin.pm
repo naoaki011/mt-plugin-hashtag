@@ -37,9 +37,14 @@ sub xfrm_edit {
         </select>
     </mtapp:widget>
 END_TMPL
-
-        $$tmpl =~ s{(<mtapp:widget
+        if ($mtversion >= 5.1) {
+            $$tmpl =~ s{(<mtapp:widget
+   id="entry-publishing-widget")}{$setting$1}msg;
+        }
+        else {
+            $$tmpl =~ s{(<mtapp:widget
     id="entry-publishing-widget")}{$setting$1}msg;
+        }
 
     } else {
 

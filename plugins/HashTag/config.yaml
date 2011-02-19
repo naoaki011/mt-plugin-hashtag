@@ -4,7 +4,7 @@ key: HashTag
 author_link: http://thecomposingstick.com
 author_name: Rob Kenny
 description: <__trans phrase='Automate tweeting your entries including hashtags.'>
-version: 2.6
+version: 2.61
 plugin_link: http://thecomposingstick.com/projects/hashtag
 l10n_class: HashTag::L10N
 
@@ -18,12 +18,12 @@ settings:
     tw_share:
         Default: 1
         Scope: blog
-    bitly_login:
-        Default: ''
-        Scope: blog
-    bitly_apikey:
-        Default: ''
-        Scope: blog
+#    bitly_login:
+#        Default: ''
+#        Scope: blog
+#    bitly_apikey:
+#        Default: ''
+#        Scope: blog
 #    bitly_ver:
 #        Default: '2.0.1'
 #        Scope: blog
