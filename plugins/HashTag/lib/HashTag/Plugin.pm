@@ -136,9 +136,13 @@ sub _build_tweet {
     my $author_id = $obj->author_id;
 
     if ( $cfg->{tw_intro} ) { $intro = $cfg->{tw_intro}; }
-
-    my $enc = MT->instance->config('PublishCharset') || undef;
-    $title = MT::I18N::encode_text( $obj->title, $enc, 'utf-8' );
+    if (substr(MT->version_number, 0, 3) >= 5.1) {
+        $title = $obj->title;
+    }
+    else {
+        my $enc = MT->instance->config('PublishCharset') || undef;
+        $title = MT::I18N::encode_text( $obj->title, $enc, 'utf-8' );
+    }
     
     # need to work out if _build_tweet has been called from a save action
     # or from a schedule post by checking if $app has the tw_share param
