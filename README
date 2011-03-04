@@ -48,11 +48,12 @@ History
 Version 2.62
 ------------
 Current Version
-* Add support keep setting value in re-edit from preview screen. Thanks macminiosx (http://www.macminiosx.com/) for supplying patch to do this.
+* Added support keep setting value in re-edit from preview screen. Thanks macminiosx (http://www.macminiosx.com/) for supplying patch to do this.
+* Added plugin setting for select URL shortener.
 
 Version 2.61
 ------------
-* Add support Movable Type 5.1.
+* Added support Movable Type 5.1.
 * Added url shorten by TinyURL.
 
 Version 2.6

@@ -74,7 +74,8 @@ sub hdlr_pre_preview {
     my ($cb, $app, $obj, $data) = @_;
     my $tw_share = $app->param('tw_share');
     if($tw_share) {
-        push @$data, {
+        push @$data,
+        {
             data_name => 'tw_share',
             data_value => $tw_share
         };
@@ -161,7 +162,7 @@ sub _build_tweet {
     # the default configuration.
 
     my $entry_url;
-    if ( $cfg->{bitly_login} && $cfg->{bitly_apikey} ) {
+    if ( $cfg->{use_bitly} ) {
         $entry_url = _bitly_shorten_v3($cfg,$obj->permalink);
     } else {
         $entry_url = _tinyurl_shorten($obj->permalink);
@@ -173,24 +174,15 @@ sub _build_tweet {
         $share = $cfg->{tw_share};
     }
 
-    if ( $share eq '1' ) {
-        $tweet = $intro . ' ' 
-        . $title . ' ' 
-        . $entry_url;
-    }
+    if ( $intro ) { $tweet = $intro . ' '; }
+    $tweet .= $title . ' ' . $entry_url;
     if ( $share eq '2' ) {
-        $tweet =
-            $intro . ' ' 
-          . $title . ' '
-          . $entry_url . ' #'
-          . $cfg->{tw_community};
+        if ( $cfg->{tw_community} ) {
+            $tweet .= ' #' . $cfg->{tw_community};
+        }
     }
     if ( $share eq '3' ) {
-        $tweet =
-          $intro . ' ' 
-        . $title . ' ' 
-        . $entry_url 
-        . _tag_to_hashtag($obj);
+        $tweet .= _tag_to_hashtag($obj);
     }
 
     _update_twitter( $author_id, $tweet );
@@ -200,22 +192,20 @@ sub _build_tweet {
 
 sub _update_twitter {
     my ( $author_id, $tweet ) = @_;
-    my $tweet_debug = 1; # 0 is TestMode. Do not Tweet. only Log output.
+    my $tweet_debug = 0; # 1 is TestMode. Do not Tweet. only Log output.
     if ($tweet_debug) {
-
-    MT->log( { message => 'Tweeting' . ' ' . $tweet, } );
-    my $client = MT::OAuth->client('twitter');
-    return $client->access(
-        author_id => $author_id,
-        end_point => 'https://api.twitter.com/1/statuses/update.xml',
-        post => {
-            status => $tweet,
-        },
-        retry => 1,
-    ) or MT->log( { message => 'Update to Twitter failed. Sorry.', } );
-
+        MT->log( { message => 'TweetTest' . ' ' . $tweet, } );
     } else {
-    MT->log( { message => 'TweetTest' . ' ' . $tweet, } );
+        MT->log( { message => 'Tweeting' . ' ' . $tweet, } );
+        my $client = MT::OAuth->client('twitter');
+        return $client->access(
+            author_id => $author_id,
+            end_point => 'https://api.twitter.com/1/statuses/update.xml',
+            post => {
+                status => $tweet,
+            },
+            retry => 1,
+        ) or MT->log( { message => 'Update to Twitter failed. Sorry.', } );
     }
 }
 
@@ -240,29 +230,6 @@ sub _bitly_shorten_v3 {
     my $bitlyurl = $obj->{data}->{url};
     return $bitlyurl;
 }
-
-#sub _bitly_shorten_v2 {
-#    my ( $cfg, $text ) = @_;
-#    require HTTP::Lite;
-#    require XML::DOM;
-#    my $login   = $cfg->{bitly_login};
-#    my $apikey  = $cfg->{bitly_apikey};
-#    my $ver     = $cfg->{bitly_ver};
-#    my $baseurl = $text;
-#    my $history = $cfg->{bitly_history};
-#    my $http = new HTTP::Lite;
-#    my $resturl = "http://api.bit.ly/shorten?version=$ver&longUrl=$baseurl&login=$login&apiKey=$apikey&format=xml";
-#    if ($history) {
-#      $resturl .= "&history=1";
-#    }
-#    my $result = $http->request($resturl) || die $!;
-#    my $xmlstr = $http->body();
-#    my $parser = new XML::DOM::Parser;
-#    my $doc = $parser->parse($xmlstr);
-#    my $nodes = $doc->getElementsByTagName('shortUrl');
-#    $text = $nodes->item(0)->getFirstChild->getNodeValue;
-#    return $text;
-#}
 
 sub _tinyurl_shorten {
     my ($text) = @_;

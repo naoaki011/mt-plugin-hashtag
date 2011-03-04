@@ -1,11 +1,11 @@
 name: HashTag
 id: HashTag
 key: HashTag
-author_link: http://thecomposingstick.com
+author_link: http://www.zelazny.mydns.jp/
 author_name: Rob Kenny
 description: <__trans phrase='Automate tweeting your entries including hashtags.'>
 version: 2.62
-plugin_link: http://thecomposingstick.com/projects/hashtag
+plugin_link: https://github.com/naoaki011/mt-plugin-hashtag
 l10n_class: HashTag::L10N
 
 settings:
@@ -18,18 +18,9 @@ settings:
     tw_share:
         Default: 1
         Scope: blog
-#    bitly_login:
-#        Default: ''
-#        Scope: blog
-#    bitly_apikey:
-#        Default: ''
-#        Scope: blog
-#    bitly_ver:
-#        Default: '2.0.1'
-#        Scope: blog
-#    bitly_history:
-#        Default: '0'
-#        Scope: blog
+    use_bitly:
+        Default: 1
+        Scope: blog
 blog_config_template: blog_config_template.tmpl
 
 callbacks:
