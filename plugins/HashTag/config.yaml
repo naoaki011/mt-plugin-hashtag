@@ -4,7 +4,7 @@ key: HashTag
 author_link: http://thecomposingstick.com
 author_name: Rob Kenny
 description: <__trans phrase='Automate tweeting your entries including hashtags.'>
-version: 2.61
+version: 2.62
 plugin_link: http://thecomposingstick.com/projects/hashtag
 l10n_class: HashTag::L10N
 
@@ -33,7 +33,10 @@ settings:
 blog_config_template: blog_config_template.tmpl
 
 callbacks:
-    MT::App::CMS::template_source.edit_entry: $HashTag::HashTag::Plugin::xfrm_edit
+    MT::App::CMS::template_source.edit_entry:
+        code: $HashTag::HashTag::Plugin::xfrm_edit
+    MT::App::CMS::cms_pre_preview:
+        code: $HashTag::HashTag::Plugin::hdlr_pre_preview
     MT::App::CMS::cms_post_save.entry:
         code: $HashTag::HashTag::Plugin::hdlr_post_save
         priority: 10

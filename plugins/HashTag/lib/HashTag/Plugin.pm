@@ -17,10 +17,10 @@ sub xfrm_edit {
     my $selected_1 = q{};
     my $selected_2 = q{};
     my $selected_3 = q{};
-    if ( $cfg->{tw_share} eq '0' ) { $selected_0 = 'selected="selected"'; }
-    if ( $cfg->{tw_share} eq '1' ) { $selected_1 = 'selected="selected"'; }
-    if ( $cfg->{tw_share} eq '2' ) { $selected_2 = 'selected="selected"'; }
-    if ( $cfg->{tw_share} eq '3' ) { $selected_3 = 'selected="selected"'; }
+    if ( $cfg->{tw_share} eq '0' || $app->param('tw_share') eq '0' ) { $selected_0 = 'selected="selected"'; }
+    if ( $cfg->{tw_share} eq '1' || $app->param('tw_share') eq '1' ) { $selected_1 = 'selected="selected"'; }
+    if ( $cfg->{tw_share} eq '2' || $app->param('tw_share') eq '2' ) { $selected_2 = 'selected="selected"'; }
+    if ( $cfg->{tw_share} eq '3' || $app->param('tw_share') eq '3' ) { $selected_3 = 'selected="selected"'; }
 
     my $mtversion  = substr(MT->version_number, 0, 3);
     if ($mtversion >= 5) {
@@ -67,6 +67,17 @@ END_TMPL
             help_page="entries"
             help_section="status">)}{$setting$1}msg;
 
+    }
+}
+
+sub hdlr_pre_preview {
+    my ($cb, $app, $obj, $data) = @_;
+    my $tw_share = $app->param('tw_share');
+    if($tw_share) {
+        push @$data, {
+            data_name => 'tw_share',
+            data_value => $tw_share
+        };
     }
 }
 
